@@ -1,5 +1,5 @@
-name: Unit Testing for py_quizlet_cram
-run-name: Unit Testing for py_quizlet_cram
+name: Unit Testing for REST API Wrapper
+run-name: Unit Testing for REST API Wrapper
 on: [push]
 jobs:
   Explore-GitHub-Actions:
