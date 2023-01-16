@@ -23,3 +23,4 @@ XML can also be requested by replacing the `.json` with `.xml`.
 - Search for specific nutrition information filtered by brand, product type, allergens, etc.
 - Sort by nutrition information (healthy options)
 - Type in a product name, and n results will populate
+- FIltering by nutrition score and ranking alternatives
