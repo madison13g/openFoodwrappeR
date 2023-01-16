@@ -5,7 +5,6 @@
 - Madison Greenough, Ricky Heinrich, Jonah Edmundson
 
 ## Description and Motivation of the API
-- To pass this class
 - The [Open Food Facts](https://world.openfoodfacts.org/) database contains nutrition information on a vast array of food items. Examples of data points include keywords, category, calories, and sugars, [among others](https://world.openfoodfacts.org/api/v0/product/737628064502.json).
 
 API calls are very simple, and are made by food product barcode:
