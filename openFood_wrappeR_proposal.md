@@ -22,5 +22,6 @@ XML can also be requested by replacing the `.json` with `.xml`.
 - Search by availability of food products in specific country
 - Search for specific nutrition information filtered by brand, product type, allergens, etc.
 - Sort by nutrition information (healthy options)
-- Type in a product name, and n results will populate
-- FIltering by nutrition score and ranking alternatives
+- Type in a product name, and n results will populate (potential webscraping)
+- Filtering by nutrition score and ranking alternatives
+- View product image
