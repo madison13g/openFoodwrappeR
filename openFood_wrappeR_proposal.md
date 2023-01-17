@@ -25,3 +25,4 @@ XML can also be requested by replacing the `.json` with `.xml`.
 - Type in a product name, and n results will populate (potential webscraping)
 - Filtering by nutrition score and ranking alternatives
 - View product image
+- Changing the API seach location
