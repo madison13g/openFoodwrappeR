@@ -1,0 +1,7 @@
+Running list of valid ways to call the O.F.F. API:
+
+barcode - https://world.openfoodfacts.org/api/v0/product/[barcode].json
+
+category - https://world.openfoodfacts.org/category/[name_of_category].json
+
+allergen - https://world.openfoodfacts.org/allergen/[name_of_allergen]/1.json
