@@ -1,2 +1,2 @@
-install.packages("testthat")
+#install.packages("testthat")
 install.packages("covr")
