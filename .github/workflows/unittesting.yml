@@ -6,8 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      #- run: chmod +x install_dependencies.sh
-      - run: Rscript install_dependencies.R
-      - run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
-      - run: R -e 'library('covr'); report(file_coverage(c('./R/calls.R'), c('./unittesting/tests_jonah.R','./unittesting/tests_ricky.R', './unittesting/tests_madison.R')), file=file.path('./', 'code_coverage.html'), browse=FALSE)' #will need to add other source code files later
-      #- run: python -m coverage report
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: '3.6.3' # The R version to download (if necessary) and use.
+      - name: Install R dependencies
+        run: Rscript install_dependencies.R
+      #- run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
+      - name: Code coverage report
+        run: R -e 'library('covr'); report(file_coverage(c('./R/calls.R'), c('./unittesting/tests_jonah.R','./unittesting/tests_ricky.R', './unittesting/tests_madison.R')), file=file.path('./', 'code_coverage.html'), browse=FALSE)' #will need to add other source code files later

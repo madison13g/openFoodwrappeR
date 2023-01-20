@@ -4,7 +4,7 @@
 
 A wrapper in R for the [Open Food Facts](https://world.openfoodfacts.org/) API.
 
-For coverage reports, go [here](./).
+For coverage reports, go [here](./code_coverage.html).
 
 # Use Guide
 
