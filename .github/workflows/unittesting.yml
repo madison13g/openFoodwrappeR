@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       #- run: chmod +x install_dependencies.sh
-      #- run: ./install_dependencies.sh
-      - run: python -m pip install coverage
-      #- run: python -m coverage run ./unittesting/unittest_suite.py
+      - run: Rscript install_dependencies.R
+      - run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
+      - run: R -e 'library('covr'); report(file_coverage(c('./R/calls.R'), c('./unittesting/tests_jonah.R','./unittesting/tests_ricky.R', './unittesting/tests_madison.R')), file=file.path('./', 'code_coverage.html'), browse=FALSE)' #will need to add other source code files later
       #- run: python -m coverage report
