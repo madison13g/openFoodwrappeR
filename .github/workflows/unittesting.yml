@@ -10,10 +10,10 @@ jobs:
         with:
           r-version: '3.6.3' # The R version to download (if necessary) and use.
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::testthat
+      #- uses: r-lib/actions/setup-r-dependencies@v2
+      #  with:
+      #    extra-packages: any::testthat
 
       - name: Unit Testing
-        #run: Rscript install_dependencies.R
-        run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
+        run: Rscript install_dependencies.R
+        run: R -e 'library("testthat"); test_dir("./unittesting", reporter=c())'

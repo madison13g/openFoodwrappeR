@@ -3,8 +3,8 @@ library('testthat')
 
 
 #importing function(s) to test
-#try(source('../R/calls.R'), silent=TRUE)
-try(source('./R/calls.R'), silent=TRUE)
+try(source('../R/calls.R'), silent=TRUE)
+#try(source('./R/calls.R'), silent=TRUE)
 
 
 
