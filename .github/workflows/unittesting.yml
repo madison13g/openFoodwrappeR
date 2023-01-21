@@ -14,6 +14,8 @@ jobs:
       #  with:
       #    extra-packages: any::testthat
 
-      - name: Unit Testing
+      - name: Install R dependencies
         run: Rscript install_dependencies.R
+        
+      - name: Unit Testing
         run: R -e 'library("testthat"); test_dir("./unittesting", reporter=c())'
