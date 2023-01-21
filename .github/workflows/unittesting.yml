@@ -2,29 +2,14 @@ name: Unit Testing for REST API Wrapper
 run-name: Unit Testing for REST API Wrapper
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Unit-Testing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      #- uses: r-lib/actions/setup-r@v2
-        #with:
-        #  r-version: '3.6.3' # The R version to download (if necessary) and use.
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r@v2
         with:
-          extra-packages: any::covr any::DT any::htmltools
-          needs: coverage
-      #- name: Test coverage
-      #  run: |
-      #    covr::codecov(
-      #      quiet = FALSE,
-      #      clean = FALSE,
-      #      install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
-      #    )
-      #  shell: Rscript {0}
+          r-version: '3.6.3' # The R version to download (if necessary) and use.
 
-
-      - name: Install R dependencies
-        run: Rscript install_dependencies.R
-      #- run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
-      - name: Code coverage report
-        run: R -e 'library("covr"); report(file_coverage(c("./R/calls.R"), c("./unittesting/tests_jonah.R","./unittesting/tests_ricky.R", "./unittesting/tests_madison.R")), file="code_coverage.html", browse=FALSE)' #will need to add other source code files later
+      - name: Unit Testing
+        #run: Rscript install_dependencies.R
+        run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
