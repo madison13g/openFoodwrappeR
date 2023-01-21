@@ -11,7 +11,7 @@ jobs:
           r-version: '3.6.3' # The R version to download (if necessary) and use.
       - name: Install R dependencies
       #  run: Rscript install_dependencies.R
-      - run: apt-get install --yes --no-install-recommends r-cran-testthat
+        run: apt-get install --yes --no-install-recommends r-cran-testthat
       #- run: R -e 'library('testthat'); test_dir("./unittesting", reporter=c("minimal", "location"))'
       - name: Code coverage report
         run: R -e 'library('covr'); report(file_coverage(c('./R/calls.R'), c('./unittesting/tests_jonah.R','./unittesting/tests_ricky.R', './unittesting/tests_madison.R')), file=file.path('./', 'code_coverage.html'), browse=FALSE)' #will need to add other source code files later
