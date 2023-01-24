@@ -26,3 +26,4 @@ XML can also be requested by replacing the `.json` with `.xml`.
 - Filtering by nutrition score and ranking alternatives
 - View product image
 - Changing the API search location
+- exporting food data as .csv
