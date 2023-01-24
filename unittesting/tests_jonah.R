@@ -15,3 +15,11 @@ test_that("Factorial of number $n", {
 		expect_equal(factorial(8), 40320)
 	}
 )
+
+
+#build_URL test
+
+
+
+
+#retrieve_countries test
