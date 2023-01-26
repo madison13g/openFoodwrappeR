@@ -2,3 +2,4 @@
 install.packages('testthat')
 install.packages('httr')
 install.packages('XML')
+install.packages('curl')
