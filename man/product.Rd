@@ -4,7 +4,7 @@
 \alias{product}
 \title{Get a product.}
 \usage{
-product(term, chars = 30, num = 1)
+product(term, chars = 30, num = NA, country = "world")
 }
 \arguments{
 \item{term}{The name of the product to search for.}
@@ -12,6 +12,8 @@ product(term, chars = 30, num = 1)
 \item{chars}{The number of characters from the product name to print.}
 
 \item{num}{The product number (1:24) to retrieve.}
+
+\item{country}{The country code. Searches only for products in the given country.}
 }
 \description{
 This function retrieves a .json file for a product.

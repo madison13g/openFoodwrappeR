@@ -4,12 +4,10 @@
 \alias{build_URL}
 \title{Build URL}
 \usage{
-build_URL(prodnum, country = "world", filters = "")
+build_URL(prodnum, filters = "")
 }
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
-
-\item{country}{The country code. Changes the language of the .json file.}
 }
 \description{
 This function builds the .json product URL.

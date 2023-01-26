@@ -4,12 +4,10 @@
 \alias{product_by_prodnum}
 \title{Product by Product Number}
 \usage{
-product_by_prodnum(prodnum, country = "world", filters = "")
+product_by_prodnum(prodnum, filters = "")
 }
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
-
-\item{country}{The country code. Changes the language of the .json file.}
 }
 \description{
 If you already know the product number of the product you want, you can use this function to retrieve the .json.

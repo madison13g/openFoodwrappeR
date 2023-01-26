@@ -7,7 +7,7 @@
 update_countries()
 }
 \description{
-This function updates the list of available countries using the API.
+This function updates the list of available countries using the API. Warning: resulting 'countries' variable is written to the global env.
 }
 \examples{
 update_countries()

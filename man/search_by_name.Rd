@@ -4,10 +4,12 @@
 \alias{search_by_name}
 \title{Search Product by Name}
 \usage{
-search_by_name(term)
+search_by_name(term, country = "world")
 }
 \arguments{
 \item{term}{The name of the product to search for.}
+
+\item{country}{The country code. Searches only for products in the given country.}
 }
 \description{
 This function allows you to express your love of cats.
