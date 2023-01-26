@@ -4,10 +4,14 @@
 \alias{product}
 \title{Get a product.}
 \usage{
-product(term, chars = 30)
+product(term, chars = 30, num = 1)
 }
 \arguments{
 \item{term}{The name of the product to search for.}
+
+\item{chars}{The number of characters from the product name to print.}
+
+\item{num}{The product number (1:24) to retrieve.}
 }
 \description{
 This function retrieves a .json file for a product.

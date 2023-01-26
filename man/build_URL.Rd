@@ -8,6 +8,8 @@ build_URL(prodnum, country = "world", filters = "")
 }
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
+
+\item{country}{The country code. Changes the language of the .json file.}
 }
 \description{
 This function builds the .json product URL.
