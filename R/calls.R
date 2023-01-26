@@ -9,7 +9,14 @@ factorial <- function(n){
 }
 
 
-search = function(term){
+#' Search Product by Name
+#'
+#' This function allows you to express your love of cats.
+#' @param term The name of the product to search for.
+#' @export
+#' @examples
+#' search_by_name()
+search_by_name = function(term){
   require(httr); require(XML)
   req = httr::content(httr::GET(paste0('https://world.openfoodfacts.org/cgi/search.pl?search_terms=', term, '&search_simple=1&action=process')), 'parse')
   resXML = XML::htmlParse(req)
@@ -20,9 +27,46 @@ search = function(term){
    titles = c(titles, gsub(".*<span>|</span>.*", "", XML::toString.XMLNode(lst[[i]])))
    prodnums = c(prodnums, gsub(".*href=\"/product/|/.*", "", XML::toString.XMLNode(lst[[i]])))
   }
-  return(data.frame(titles, prodnums))
+  return(data.frame('titles'=as.character(titles), 'prodnums'=as.character(prodnums)))
 }
 
+
+
+####url....json?fields=<parameter>
+
+#' Build URL
+#'
+#' This function builds the .json product URL.
+#' @param prodnum The product number. Passed from product function. 
+#' @export
+#' @examples
+#' build_URL()
+build_URL = function(prodnum, country = 'world', filters=''){
+	return(paste0('https://', country, '-en.openfoodfacts.org/api/v0/product/', prodnum, '.json'))
+}
+
+
+
+#' Get a product.
+#'
+#' This function retrieves a .json file for a product. 
+#' @param term The name of the product to search for.
+#' @export
+#' @examples
+#' product()
+product = function(term, chars=30){
+  lst = search_by_name(term)
+  cat("Number", "\t | \t", "Name", "\n")
+  cat("-------------------", "\n")
+  for (i in 1:nrow(lst)){
+    cat(i, "\t | \t", substr(as.character(lst[i, 1]), 1, chars), " ... \n")
+    Sys.sleep(0.15)
+  }
+  cat("Please select the \'Number\' of the product: \n")
+  num = readline()
+  url = build_URL(lst[num, 2])
+  return(jsonlite::fromJSON(txt=url))
+}
 
 
 
@@ -70,9 +114,3 @@ update_countries = function(){
   a = data.frame(z, y)
   assign("countries", a, envir = .GlobalEnv)
 }
-
-
-#url....json?fields=<parameter>
-#build_URL = function(country = 'world', filters=''){
-#	return(paste0('https://', country, '-en.openfoodfacts.org/api/v0/', '.json'))
-#}
