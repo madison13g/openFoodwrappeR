@@ -9,6 +9,22 @@ factorial <- function(n){
 }
 
 
+search = function(term){
+  require(httr); require(XML)
+  req = httr::content(httr::GET(paste0('https://world.openfoodfacts.org/cgi/search.pl?search_terms=', term, '&search_simple=1&action=process')), 'parse')
+  resXML = XML::htmlParse(req)
+  lst = XML::getNodeSet(resXML, "//*[@class='products']/li")
+  titles = c()
+  prodnums = c()
+  for (i in 1:length(lst)){
+   titles = c(titles, gsub(".*<span>|</span>.*", "", XML::toString.XMLNode(lst[[i]])))
+   prodnums = c(prodnums, gsub(".*href=\"/product/|/.*", "", XML::toString.XMLNode(lst[[i]])))
+  }
+  return(data.frame(titles, prodnums))
+}
+
+
+
 
 countries = c("er", "ee", "ru", "is", "st", "pw", "kw", "iq", "by", "ae", 
               "gf", "tv", "lu", "ms", "pr", "re", "yu", "bj", "mw", "us", "ax", 
@@ -56,7 +72,7 @@ update_countries = function(){
 }
 
 
-
-#build_URL = function(country = 'world'){
+#url....json?fields=<parameter>
+#build_URL = function(country = 'world', filters=''){
 #	return(paste0('https://', country, '-en.openfoodfacts.org/api/v0/', '.json'))
 #}
