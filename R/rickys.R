@@ -9,6 +9,7 @@ search_by_name = function(term, country='world'){
   if (!(is.character(term))){
     stop("\'term\' must be a string!")
   }
+  term <- gsub(" ", "+", term)
   require(httr); require(XML)
   req = httr::content(httr::GET(paste0('https://', country, '.openfoodfacts.org/cgi/search.pl?search_terms=', term, '&search_simple=1&action=process')), 'parse')
   resXML = XML::htmlParse(req)
@@ -22,7 +23,7 @@ search_by_name = function(term, country='world'){
   return(data.frame('titles'=as.character(titles), 'prodnums'=as.character(prodnums)))
 }
 
-search_by_name("egg")
+search_by_name("egg cake")
 
 build_URL = function(prodnum, filters=''){
   return(paste0('https://world-en.openfoodfacts.org/api/v0/product/', prodnum, '.json'))
@@ -59,17 +60,19 @@ product = function(term, chars=30, num=NA, country='world'){
 }
 
 celebration <-product("celebration")
-chipits <- product("chipits")
+chip_ahoy <- product("chip ahoy")
 
-
+product("cookies")
 
 what_ingreds <- function(item){
-  item[["product"]][["ingredients"]][["text"]]
+  unique(item[["product"]][["ingredients"]][["text"]])
 }
 
 num_ingreds <- function(item){
   length(what_ingreds(item))
 }
 
-what_ingreds(chipits)
+
+what_ingreds(chip_ahoy)
 num_ingreds(celebration)
+
