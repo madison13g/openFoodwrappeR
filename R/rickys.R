@@ -1,3 +1,54 @@
+
+# my default products, from jonah's function (below)
+celebration <-product("celebration", country = "CA")
+chip_ahoy <- product("chip ahoy")
+banani <- product("banana")
+
+# my new functions
+prod_name <- function(item){
+  item[["product"]][["product_name"]]
+}
+
+what_ingreds <- function(item){
+  unique(item[["product"]][["ingredients"]][["text"]])
+}
+
+num_ingreds <- function(item){
+  length(what_ingreds(item))
+}
+
+sugar_per_100g <- function(item){
+  item[["product"]][["nutriments"]][["sugars_100g"]]
+}
+
+food_group <- function(item){
+  strsplit(item[["product"]][["food_groups"]], ":")[[1]][2]
+}
+
+plot_sugar <- function(prod_list){
+  require(ggplot2)
+  name_list <- lapply(prod_list, prod_name)
+  sugar_list <- lapply(prod_list, sugar_per_100g)
+  group_list <- lapply(prod_list, food_group)
+  df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
+  names(df) <- c("Product", "Sugar", "Group")
+  ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
+    scale_y_discrete(labels = function(y) lapply(strwrap(y, 
+                                                         width = 10, 
+                                                         simplify = FALSE), 
+                                                 paste, collapse="\n")) +
+    labs(y = "Product Name", x = "Sugar (per 100 g)")
+}
+
+# testing functions
+prod_name(celebration)
+what_ingreds(celebration)
+num_ingreds(celebration)
+sugar_per_100g(chip_ahoy)
+plot_sugar(list(banani, celebration, chip_ahoy))
+
+
+# Jonah's functions
 check_internet = function(){
   if (!curl::has_internet()){
     stop("No internet connection!")
@@ -56,59 +107,3 @@ product = function(term, chars=30, num=NA, country='world'){
   }
   return(product_by_prodnum(as.character(lst[num, 2])))
 }
-
-# my default products
-celebration <-product("celebration", country = "CA")
-chip_ahoy <- product("chip ahoy")
-
-# my new functions
-prod_name <- function(item){
-  item[["product"]][["product_name"]]
-}
-what_ingreds <- function(item){
-  unique(item[["product"]][["ingredients"]][["text"]])
-}
-num_ingreds <- function(item){
-  length(what_ingreds(item))
-}
-sugar_per_100g <- function(item){
-  item[["product"]][["nutriments"]][["sugars_100g"]]
-}
-food_group <- function(item){
-  strsplit(item[["product"]][["food_groups"]], ":")[[1]][2]
-}
-
-teststr <- strsplit(celebration[["product"]][["food_groups"]], ":")
-
-# fcn: plot amt of sugar in list of products
-prod_list <- list(celebration, chip_ahoy)
-name_list <- lapply(prod_list, prod_name)
-sugar_list <- lapply(prod_list, sugar_per_100g)
-library(ggplot2)
-
-plot_sugar <- function(prod_list){
-  require(ggplot2)
-  name_list <- lapply(prod_list, prod_name)
-  sugar_list <- lapply(prod_list, sugar_per_100g)
-  group_list <- lapply(prod_list, food_group)
-  df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
-  names(df) <- c("Product", "Sugar", "Group")
-  ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
-    scale_y_discrete(labels = function(y) lapply(strwrap(y, 
-                                                         width = 10, 
-                                                         simplify = FALSE), 
-                                                 paste, collapse="\n")) +
-    labs(y = "Product Name", x = "Sugar (per 100 g)")
-}
-
-
-
-
-# testing functions
-prod_name(celebration)
-what_ingreds(celebration)
-num_ingreds(celebration)
-sugar_per_100g(chipits)
-plot_sugar(list(chipits, celebration, chip_ahoy))
-
-
