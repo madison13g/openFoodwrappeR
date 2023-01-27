@@ -1,12 +1,5 @@
 ### This file interacts with the API to make calls and retrieve data. 
-#test function
-factorial <- function(n){
-  if(n == 0){
-    return(1)
-  } else{
-    return(n * factorial(n - 1))
-  }
-}
+
 
 
 #' Search Product by Name
@@ -23,6 +16,7 @@ search_by_name = function(term, country='world'){
     stop("\'term\' must be a string!")
   }
   require(httr); require(XML)
+  term = gsub(' ', '+', term)
   req = httr::content(httr::GET(paste0('https://', country, '.openfoodfacts.org/cgi/search.pl?search_terms=', term, '&search_simple=1&action=process')), 'parse')
   resXML = XML::htmlParse(req)
   lst = XML::getNodeSet(resXML, "//*[@class='products']/li")
