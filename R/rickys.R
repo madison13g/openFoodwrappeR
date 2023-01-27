@@ -62,6 +62,9 @@ celebration <-product("celebration", country = "CA")
 chip_ahoy <- product("chip ahoy")
 
 # my new functions
+prod_name <- function(item){
+  item[["product"]][["product_name"]]
+}
 what_ingreds <- function(item){
   unique(item[["product"]][["ingredients"]][["text"]])
 }
@@ -72,7 +75,33 @@ sugar_per_100g <- function(item){
   item[["product"]][["nutriments"]][["sugars_100g"]]
 }
 
+# fcn: plot amt of sugar in list of products
+prod_list <- list(celebration, chip_ahoy)
+name_list <- lapply(prod_list, prod_name)
+sugar_list <- lapply(prod_list, sugar_per_100g)
+library(ggplot2)
+
+plot_sugar <- function(prod_list){
+  require(ggplot2)
+  name_list <- lapply(prod_list, prod_name)
+  sugar_list <- lapply(prod_list, sugar_per_100g)
+  df <- data.frame(unlist(name_list), unlist(sugar_list))
+  names(df) <- c("Product", "Sugar")
+  ggplot(df, aes(y=Product, x = Sugar)) + geom_col() +
+    scale_y_discrete(labels = function(y) lapply(strwrap(y, 
+                                                         width = 10, 
+                                                         simplify = FALSE), 
+                                                 paste, collapse="\n"))
+}
+
+
+
+
 # testing functions
+prod_name(celebration)
 what_ingreds(celebration)
 num_ingreds(celebration)
 sugar_per_100g(chipits)
+plot_sugar(list(chipits, celebration))
+
+
