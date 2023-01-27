@@ -87,7 +87,7 @@ plot_sugar <- function(prod_list){
   sugar_list <- lapply(prod_list, sugar_per_100g)
   df <- data.frame(unlist(name_list), unlist(sugar_list))
   names(df) <- c("Product", "Sugar")
-  ggplot(df, aes(y=Product, x = Sugar)) + geom_col() +
+  ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar))) + geom_col() +
     scale_y_discrete(labels = function(y) lapply(strwrap(y, 
                                                          width = 10, 
                                                          simplify = FALSE), 
@@ -102,6 +102,6 @@ prod_name(celebration)
 what_ingreds(celebration)
 num_ingreds(celebration)
 sugar_per_100g(chipits)
-plot_sugar(list(chipits, celebration))
+plot_sugar(list(chipits, celebration, chip_ahoy))
 
 
