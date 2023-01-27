@@ -74,6 +74,11 @@ num_ingreds <- function(item){
 sugar_per_100g <- function(item){
   item[["product"]][["nutriments"]][["sugars_100g"]]
 }
+food_group <- function(item){
+  strsplit(item[["product"]][["food_groups"]], ":")[[1]][2]
+}
+
+teststr <- strsplit(celebration[["product"]][["food_groups"]], ":")
 
 # fcn: plot amt of sugar in list of products
 prod_list <- list(celebration, chip_ahoy)
@@ -85,13 +90,15 @@ plot_sugar <- function(prod_list){
   require(ggplot2)
   name_list <- lapply(prod_list, prod_name)
   sugar_list <- lapply(prod_list, sugar_per_100g)
-  df <- data.frame(unlist(name_list), unlist(sugar_list))
-  names(df) <- c("Product", "Sugar")
-  ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar))) + geom_col() +
+  group_list <- lapply(prod_list, food_group)
+  df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
+  names(df) <- c("Product", "Sugar", "Group")
+  ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
     scale_y_discrete(labels = function(y) lapply(strwrap(y, 
                                                          width = 10, 
                                                          simplify = FALSE), 
-                                                 paste, collapse="\n"))
+                                                 paste, collapse="\n")) +
+    labs(y = "Product Name", x = "Sugar (per 100 g)")
 }
 
 
