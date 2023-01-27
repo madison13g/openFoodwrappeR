@@ -23,8 +23,6 @@ search_by_name = function(term, country='world'){
   return(data.frame('titles'=as.character(titles), 'prodnums'=as.character(prodnums)))
 }
 
-search_by_name("egg cake")
-
 build_URL = function(prodnum, filters=''){
   return(paste0('https://world-en.openfoodfacts.org/api/v0/product/', prodnum, '.json'))
 }
@@ -59,20 +57,22 @@ product = function(term, chars=30, num=NA, country='world'){
   return(product_by_prodnum(as.character(lst[num, 2])))
 }
 
-celebration <-product("celebration")
+# my default products
+celebration <-product("celebration", country = "CA")
 chip_ahoy <- product("chip ahoy")
 
-product("cookies")
-
+# my new functions
 what_ingreds <- function(item){
   unique(item[["product"]][["ingredients"]][["text"]])
 }
-
 num_ingreds <- function(item){
   length(what_ingreds(item))
 }
+sugar_per_100g <- function(item){
+  item[["product"]][["nutriments"]][["sugars_100g"]]
+}
 
-
-what_ingreds(chip_ahoy)
+# testing functions
+what_ingreds(celebration)
 num_ingreds(celebration)
-
+sugar_per_100g(chipits)
