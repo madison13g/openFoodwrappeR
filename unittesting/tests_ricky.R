@@ -1,19 +1,7 @@
-#We should have a folder named R
-# with all the R code, and one folder named tests/testthat
-# where all the test scripts will live. 
-# For each file with R scripts there should be another one with tests, 
-# with the same name, but prefixed by test_
-
 library('testthat')
 
 # importing functions
-try(source('./R/rickys.R'), silent=TRUE)
-# b/c I called jonah's functions with values to make mine work
-# this runs through it
-# is that a fair way to test, I guess so
-# maybe add in product function argument for number if know already
-# defaults to none
-
+try(source('R/rickys.R'), silent=TRUE)
 
 # prod_name function test
 test_that("Testing prod_name function", {
@@ -31,6 +19,14 @@ test_that("Testing sugar_per_100g function", {
 }
 )
 
+# food_group function test
+test_that("Testing food_group function", {
+  expect_error(food_group(strawberry))
+  expect_error(food_group("celebration"))
+  expect_type(food_group(celebration), 'character')
+}
+)
+
 # plot_sugar function test
 test_that("Testing plot_sugar function", {
   expect_error(plot_sugar(strawberry))
@@ -39,3 +35,4 @@ test_that("Testing plot_sugar function", {
   expect_type(plot_sugar(list(banani, celebration, chip_ahoy)), 'list')
 }
 )
+
