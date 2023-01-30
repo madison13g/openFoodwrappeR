@@ -39,13 +39,14 @@ product_by_prodnum = function(prodnum, filters=''){
 }
 product = function(term, chars=30, num=NA, country='world'){
   lst = search_by_name(term, country)
-  cat("Number", "\t | \t", "Name", "\n")
-  cat("-------------------------", "\n")
-  for (i in 1:nrow(lst)){
-    cat(i, "\t | \t", substr(as.character(lst[i, 1]), 1, chars), " ... \n")
-    Sys.sleep(0.1)
-  }
-  cat("Please select the \'Number\' of the product: \n")
+  if(is.na(num)){
+    cat("Number", "\t | \t", "Name", "\n")
+    cat("-------------------------", "\n")
+    for (i in 1:nrow(lst)){
+      cat(i, "\t | \t", substr(as.character(lst[i, 1]), 1, chars), " ... \n")
+      Sys.sleep(0.1)
+    }
+    cat("Please select the \'Number\' of the product: \n")}
   if(interactive()){
     while (!(num %in% c(1:24))){
       num = readline()
