@@ -8,24 +8,18 @@ banani <- product("banana", num = 1)
 # my new functions
 
 #' Report the product name
+#' 
+#' This function returns the product name of a json from product() function
+#' 
+#' @param item The output of a specific product() call 
 #'
-#' @param item 
-#'
-#' @return
+#' @return A string with the product name
 #' @export
-#'
 #' @examples
 prod_name <- function(item){
   return(item[["product"]][["product_name"]])
 }
 
-what_ingreds <- function(item){
-  return(unique(item[["product"]][["ingredients"]][["text"]]))
-}
-
-num_ingreds <- function(item){
-  length(what_ingreds(item))
-}
 
 sugar_per_100g <- function(item){
   return(item[["product"]][["nutriments"]][["sugars_100g"]])
