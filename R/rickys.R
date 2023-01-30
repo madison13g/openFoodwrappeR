@@ -1,12 +1,5 @@
 source("R/jonahs.R")
 
-# my default products, from jonah's function
-celebration <-product("celebration", country = "CA", num = 2)
-chip_ahoy <- product("chip ahoy", num = 2)
-banani <- product("banana", num = 1)
-
-# my new functions
-
 #' Report the product name
 #' 
 #' This function returns the product name of a json from product() function

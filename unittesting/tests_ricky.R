@@ -3,6 +3,11 @@ library('testthat')
 # importing functions
 try(source('R/rickys.R'), silent=TRUE)
 
+#default test values
+celebration <-product("celebration", country = "CA", num = 2)
+chip_ahoy <- product("chip ahoy", num = 2)
+banani <- product("banana", num = 1)
+
 # prod_name function test
 test_that("Testing prod_name function", {
   expect_error(prod_name(strawberry))
