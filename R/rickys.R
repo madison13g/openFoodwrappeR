@@ -1,9 +1,9 @@
 source("R/jonahs.R")
 
 # my default products, from jonah's function (below)
-celebration <-product("celebration", country = "CA")
-chip_ahoy <- product("chip ahoy")
-banani <- product("banana")
+celebration <-product("celebration", country = "CA", num = 2)
+chip_ahoy <- product("chip ahoy", num = 2)
+banani <- product("banana", num = 1)
 
 # my new functions
 
