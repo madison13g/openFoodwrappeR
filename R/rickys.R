@@ -5,12 +5,20 @@ chip_ahoy <- product("chip ahoy")
 banani <- product("banana")
 
 # my new functions
+#' Report the product name
+#'
+#' @param item 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 prod_name <- function(item){
-  item[["product"]][["product_name"]]
+  return(item[["product"]][["product_name"]])
 }
 
 what_ingreds <- function(item){
-  unique(item[["product"]][["ingredients"]][["text"]])
+  return(unique(item[["product"]][["ingredients"]][["text"]]))
 }
 
 num_ingreds <- function(item){
@@ -18,7 +26,7 @@ num_ingreds <- function(item){
 }
 
 sugar_per_100g <- function(item){
-  item[["product"]][["nutriments"]][["sugars_100g"]]
+  return(item[["product"]][["nutriments"]][["sugars_100g"]])
 }
 
 food_group <- function(item){
