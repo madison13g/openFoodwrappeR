@@ -1,4 +1,4 @@
-source("R/jonahs.R")
+source("../R/jonahs.R")
 
 #' Report the product name
 #' 
@@ -68,4 +68,3 @@ plot_sugar <- function(prod_list){
     labs(y = "Product Name", x = "Sugar (per 100 g)")
   return(s.plot)
 }
-
