@@ -1,4 +1,3 @@
-
 #' Report the product name
 #' 
 #' This function returns the product name of a json from product() function
@@ -11,9 +10,19 @@
 #' prod_name(product("cookie"))
 #' prod_name(cookie) # where cookie is saved variable from product() call
 prod_name <- function(item){
-  return(item[["product"]][["product_name"]])
-}
-
+  tryCatch(
+    expr = {return(item[["product"]][["product_name"]])
+    },
+    error = function(e){
+      stop('Invalid Input: Ensure argument is result of valid product() call.')
+    },
+    warning = function(w){
+      stop('Warning:Invalid Input, Ensure argument is result of valid product() call')
+    },
+    finally = {
+    }
+  ) 
+  }
 
 #' Report the amount of sugar in product per 100g
 #'
@@ -25,7 +34,18 @@ prod_name <- function(item){
 #' sugar_per_100g(product("cookie"))
 #' sugar_per_100g(cookie) # where cookie is saved variable from product() call
 sugar_per_100g <- function(item){
-  return(item[["product"]][["nutriments"]][["sugars_100g"]])
+  tryCatch(
+    expr = {return(item[["product"]][["nutriments"]][["sugars_100g"]])
+    },
+    error = function(e){
+      stop('Invalid Input: Ensure argument is result of valid product() call.')
+    },
+    warning = function(w){
+      stop('Warning: Ensure argument is result of valid product() call')
+    },
+    finally = {
+    }
+  )
 }
 
 
@@ -39,7 +59,18 @@ sugar_per_100g <- function(item){
 #' food_group(product("cookie"))
 #' food_group(cookie) # where cookie is saved variable from product() call
 food_group <- function(item){
-  strsplit(item[["product"]][["food_groups"]], ":")[[1]][2]
+  tryCatch(
+    expr = {return(strsplit(item[["product"]][["food_groups"]], ":")[[1]][2])
+    },
+    error = function(e){
+      stop('Invalid Input: Ensure argument is result of valid product() call.')
+    },
+    warning = function(w){
+      stop('Warning: Ensure argument is result of valid product() call')
+    },
+    finally = {
+    }
+  )
 }
 
 
@@ -53,17 +84,29 @@ food_group <- function(item){
 #' plot_sugar(list(cookie, apple)) # where cookie and apple are saved variables from product() calls
 #' plot_sugar(list(product("cookie"), product("apple")))
 plot_sugar <- function(prod_list){
-  require(ggplot2)
-  name_list <- lapply(prod_list, prod_name)
-  sugar_list <- lapply(prod_list, sugar_per_100g)
-  group_list <- lapply(prod_list, food_group)
-  df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
-  names(df) <- c("Product", "Sugar", "Group")
-  s.plot <- ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
-    scale_y_discrete(labels = function(y) lapply(strwrap(y, 
-                                                         width = 10, 
-                                                         simplify = FALSE), 
-                                                 paste, collapse="\n")) +
-    labs(y = "Product Name", x = "Sugar (per 100 g)")
-  return(s.plot)
+  tryCatch(
+    expr = {
+      require(ggplot2)
+      name_list <- lapply(prod_list, prod_name)
+      sugar_list <- lapply(prod_list, sugar_per_100g)
+      group_list <- lapply(prod_list, food_group)
+      df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
+      names(df) <- c("Product", "Sugar", "Group")
+      s.plot <- ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
+        scale_y_discrete(labels = function(y) lapply(strwrap(y, 
+                                                             width = 10, 
+                                                             simplify = FALSE), 
+                                                     paste, collapse="\n")) +
+        labs(y = "Product Name", x = "Sugar (per 100 g)")
+      return(s.plot)
+    },
+    error = function(e){
+      stop('')
+    },
+    warning = function(w){
+      stop('Warning: Invalid Input: Ensure argument is list of result(s) of valid product() call.')
+    },
+    finally = {
+    }
+  )
 }
