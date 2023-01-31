@@ -4,7 +4,7 @@
 \alias{product_by_prodnum}
 \title{Product by Product Number}
 \usage{
-product_by_prodnum(prodnum, filters = "")
+product_by_prodnum(prodnum)
 }
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}

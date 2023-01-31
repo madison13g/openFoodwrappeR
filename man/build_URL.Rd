@@ -4,7 +4,7 @@
 \alias{build_URL}
 \title{Build URL}
 \usage{
-build_URL(prodnum, filters = "")
+build_URL(prodnum)
 }
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
