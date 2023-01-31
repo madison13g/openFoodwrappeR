@@ -1,4 +1,3 @@
-source("../R/jonahs.R")
 
 #' Report the product name
 #' 
