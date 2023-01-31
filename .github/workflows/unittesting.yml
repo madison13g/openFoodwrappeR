@@ -13,7 +13,10 @@ jobs:
       #- uses: r-lib/actions/setup-r-dependencies@v2
       #  with:
       #    extra-packages: any::testthat
-
+      
+      - name: Install curl library for linux
+        run: sudo apt-get install libcurl4-openssl-dev
+        
       - name: Install R dependencies
         run: Rscript install_dependencies.R
         
