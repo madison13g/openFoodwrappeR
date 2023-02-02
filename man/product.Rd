@@ -17,12 +17,15 @@ product(term, chars = 30, num = NA, country = "world")
 
 \item{country}{The country code. Searches only for products in the given country.}
 }
+\value{
+A nested list of product information, parsed from the JSON that is returned by the API.
+}
 \description{
 This function retrieves a .json file for a product.
 
 This function retrieves a .json file for a product.
 }
 \examples{
-product()
+product('eggs')
 product()
 }

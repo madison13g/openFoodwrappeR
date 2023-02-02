@@ -11,12 +11,15 @@ build_URL(prodnum)
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
 }
+\value{
+A string formatted as a URL with the proper syntax for querying the OFF API.
+}
 \description{
 This function builds the .json product URL.
 
 This function builds the .json product URL.
 }
 \examples{
-build_URL()
+build_URL('80310891')
 build_URL()
 }

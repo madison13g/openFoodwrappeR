@@ -8,6 +8,9 @@ check_internet()
 
 check_internet()
 }
+\value{
+Nothing if TRUE, throws an error if FALSE.
+}
 \description{
 This function verifies that you have an internet connection. For internal use only.
 

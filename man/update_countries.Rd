@@ -8,6 +8,9 @@ update_countries()
 
 update_countries()
 }
+\value{
+An updated dataframe of valid countries and their 2-letter codes. Only returns dataframe if R is running in non-interactive mode. Otherwise, only countries variable is updated and nothing is returned.
+}
 \description{
 This function updates the list of available countries using the API. Warning: resulting 'countries' variable is written to the global env.
 

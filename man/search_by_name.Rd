@@ -13,12 +13,15 @@ search_by_name(term, country = "world")
 
 \item{country}{The country code. Searches only for products in the given country.}
 }
+\value{
+A dataframe containing 24 product names ('titles') and product numbers ('prodnums').
+}
 \description{
 This function allows you to express your love of cats.
 
 This function allows you to express your love of cats.
 }
 \examples{
-search_by_name()
+search_by_name('eggs')
 search_by_name()
 }

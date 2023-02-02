@@ -11,12 +11,15 @@ product_by_prodnum(prodnum)
 \arguments{
 \item{prodnum}{The product number. Passed from product function.}
 }
+\value{
+A nested list of product information, parsed from the JSON that is returned by the API.
+}
 \description{
 If you already know the product number of the product you want, you can use this function to retrieve the .json.
 
 If you already know the product number of the product you want, you can use this function to retrieve the .json.
 }
 \examples{
-product_by_prodnum()
+product_by_prodnum('80310891')
 product_by_prodnum()
 }

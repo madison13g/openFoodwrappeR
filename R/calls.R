@@ -7,9 +7,10 @@
 #' This function allows you to express your love of cats.
 #' @param term The name of the product to search for.
 #' @param country The country code. Searches only for products in the given country.  
+#' @return A dataframe containing 24 product names ('titles') and product numbers ('prodnums').
 #' @export
-#' @examples
-#' search_by_name()
+#' @examples 
+#' search_by_name('eggs')
 search_by_name = function(term, country='world'){
   check_internet() #stops function if internet connection is not present
   if (!(is.character(term))){ #checks that user input is a string
@@ -39,6 +40,7 @@ search_by_name = function(term, country='world'){
 #'
 #' This function verifies that you have an internet connection. For internal use only.
 #' @export
+#' @return Nothing if TRUE, throws an error if FALSE. 
 #' @examples
 #' check_internet()
 check_internet = function(){
@@ -54,9 +56,10 @@ check_internet = function(){
 #'
 #' This function builds the .json product URL.
 #' @param prodnum The product number. Passed from product function.
+#' @return A string formatted as a URL with the proper syntax for querying the OFF API.
 #' @export
-#' @examples
-#' build_URL()
+#' @examples 
+#' build_URL('80310891')
 build_URL = function(prodnum){ #builds json request URL using proper syntax
 	return(paste0('https://world-en.openfoodfacts.org/api/v0/product/', prodnum, '.json'))
 }
@@ -68,9 +71,10 @@ build_URL = function(prodnum){ #builds json request URL using proper syntax
 #'
 #' If you already know the product number of the product you want, you can use this function to retrieve the .json.
 #' @param prodnum The product number. Passed from product function. 
+#' @return A nested list of product information, parsed from the JSON that is returned by the API.
 #' @export
-#' @examples
-#' product_by_prodnum()
+#' @examples 
+#' product_by_prodnum('80310891')
 product_by_prodnum = function(prodnum){
   check_internet() #checks for network connexion
   if (!(is.character(prodnum))){ #checks that input is a string
@@ -93,9 +97,10 @@ product_by_prodnum = function(prodnum){
 #' @param chars The number of characters from the product name to print.
 #' @param num The product number (1:24) to retrieve. 
 #' @param country The country code. Searches only for products in the given country.  
+#' @return A nested list of product information, parsed from the JSON that is returned by the API.
 #' @export
-#' @examples
-#' product()
+#' @examples 
+#' product('eggs')
 product = function(term, chars=30, num=NA, country='world'){
   lst = search_by_name(term, country) #returns dataframe of 24 products and their numbers
   if (is.na(num)){ #skip this if num is explicity passed
@@ -230,6 +235,7 @@ retrieve_countries = function(){
 #' Update countries.
 #'
 #' This function updates the list of available countries using the API. Warning: resulting 'countries' variable is written to the global env.
+#' @return An updated dataframe of valid countries and their 2-letter codes. Only returns dataframe if R is running in non-interactive mode. Otherwise, only countries variable is updated and nothing is returned.
 #' @export
 #' @examples
 #' update_countries()
