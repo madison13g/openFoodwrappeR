@@ -6,6 +6,8 @@ A wrapper in R for the [Open Food Facts](https://world.openfoodfacts.org/) API.
 
 For coverage reports, go [here](./code_coverage.html).
 
+For our vignette, go [here](./doc/Intro_to_openFoodwrappeR.html).
+
 # Use Guide
 
 *******show functions here

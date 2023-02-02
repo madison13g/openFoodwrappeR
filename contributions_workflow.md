@@ -5,7 +5,7 @@ As per the project requirements:
 
 ## Task Delegation
 
-text
+All parties will complete functions, which will later be merged. Then testing will be split up as well.
 
 
 ## Expected Workflow

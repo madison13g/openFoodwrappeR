@@ -1,0 +1,93 @@
+---
+title: "Introduction to openFoodwrappeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to openFoodwrappeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A wrapper in R for the [Open Food Facts](https://world.openfoodfacts.org/) API.
+
+```{r setup}
+library(openFoodwrappeR)
+```
+
+# Retrieving a product
+
+## Intuitive method
+
+In order to retrieve a product based a search term, use the `product()` function:
+
+```{r}
+x = product('hot sauce')
+class(x)
+length(x$product)
+```
+
+This function returns the parsed `.json` information as a list.
+
+If `R` was running in interactive mode, the user would be prompted to enter a number in order to select which product they would like from the printed list. 
+
+
+## Get product numbers
+
+If you want to get product numbers, you can use the `search_by_name` function:
+
+```{r}
+y = search_by_name('milk chocolate')
+y
+```
+
+
+## Search by product number
+
+If you already have a product number and want to retrieve information using the exact product number, use the `product_by_prodnum` function:
+
+```{r}
+z = product_by_prodnum('80310891')
+class(z)
+length(z$product)
+```
+
+
+# Retrieving information from a product
+
+
+## Carbon footprint
+
+```{r}
+#carbon_footprint(x)
+#plot_carbon(list(x, z))
+```
+
+
+
+
+## Allergens
+
+
+```{r}
+#view_allergens(x)
+```
+
+
+
+
+# Comparing multiple products
+
+text
+
+
+
+# Plotting
+
+text
+
