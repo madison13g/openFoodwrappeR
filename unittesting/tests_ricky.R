@@ -2,7 +2,7 @@ library('testthat')
 
 # importing functions
 try(source('../R/rickys.R'), silent=TRUE)
-try(source("../R/jonahs.R"), silent=TRUE)
+try(source('../R/calls.R'), silent=TRUE)
 
 #default test values
 celebration <-product("celebration", country = "CA", num = 2)
