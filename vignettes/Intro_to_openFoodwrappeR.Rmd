@@ -61,16 +61,23 @@ length(z$product)
 # Retrieving information from a product
 
 
-## Nutriments
+## Carbon footprint
 
-text
+```{r}
+#carbon_footprint(x)
+#plot_carbon(list(x, z))
+```
+
 
 
 
 ## Allergens
 
 
-text
+```{r}
+#view_allergens(x)
+```
+
 
 
 

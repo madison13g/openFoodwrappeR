@@ -14,8 +14,8 @@
 #' 
 #' @param item The output of a specific product() call 
 #'
-#' @return 
-#' @export A csv with product info
+#' @return A csv with product info
+#' @export 
 #' @examples
 #' to_csv(product("cracker"))
 #' to_csv(cracker) # where cracker is saved variable from product() call
