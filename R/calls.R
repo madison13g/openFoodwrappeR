@@ -98,22 +98,24 @@ product_by_prodnum = function(prodnum){
 #' product()
 product = function(term, chars=30, num=NA, country='world'){
   lst = search_by_name(term, country) #returns dataframe of 24 products and their numbers
-  cat("Number", "\t | \t", "Name", "\n") #all 'cat' is pretty printing 
-  cat("-------------------------", "\n")
-  for (i in 1:nrow(lst)){ #prints dataframe
-    cat(i, "\t | \t", substr(as.character(lst[i, 1]), 1, chars), " ... \n")
-    Sys.sleep(0.1) #makes it look cool
-  }
-  cat("Please select the \'Number\' of the product: \n")
-  if(interactive()){ #only prompts user if R is running in interactive mode
-    while (!(num %in% c(1:nrow(lst)))){ #ensures user enters a valid number
-      num = readline() #get user input 
-      if (!(num %in% c(1:nrow(lst)))){ #if user gives invalid number
-        cat("Please enter a number between 1 and", nrow(lst), "! \n")
-      }
+  if (is.na(num)){ #skip this if num is explicity passed
+    cat("Number", "\t | \t", "Name", "\n") #all 'cat' is pretty printing 
+    cat("-------------------------", "\n")
+    for (i in 1:nrow(lst)){ #prints dataframe
+      cat(i, "\t | \t", substr(as.character(lst[i, 1]), 1, chars), " ... \n")
+      Sys.sleep(0.1) #makes it look cool
     }
-  } else {
-    num = 1
+    cat("Please select the \'Number\' of the product: \n")
+    if(interactive()){ #only prompts user if R is running in interactive mode
+      while (!(num %in% c(1:nrow(lst)))){ #ensures user enters a valid number
+        num = readline() #get user input 
+        if (!(num %in% c(1:nrow(lst)))){ #if user gives invalid number
+          cat("Please enter a number between 1 and", nrow(lst), "! \n")
+        }
+      }
+    } else {
+      num = 1
+    }
   }
   return(product_by_prodnum(as.character(lst[num, 2]))) #return json of selected product
 }

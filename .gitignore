@@ -1,5 +1,5 @@
 inst/doc
-/doc/
+# /doc/
 /Meta/
 
 # History files
@@ -45,3 +45,4 @@ inst/doc
 # R Environment Variables
 .Renviron
 
+/doc/
