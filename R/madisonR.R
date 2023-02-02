@@ -1,29 +1,5 @@
 # Creating functions document
 
-### My FN's
-
-
-#' Convert product json into CSV / Excel
-#' 
-#' This function converts the product info from json to df in csv downloadable format
-#' 
-#' @param item The output of a specific product() call 
-#'
-#' @return A df that can be downloaded into a csv
-#' @export 
-#' @examples 
-#' to_csv(product("cracker"))
-#' to_csv(cracker) # where cracker is saved variable from product() call
-to_csv <- function(item){
-  # creates list from the item inputted
-  l <- item
-  # unlists the item
-  df <- as.data.frame(unlist(l), byrow=TRUE,stringsAsFactors=FALSE)
-  # prints the head of the df to view a sample of it before deciding to export
-  print(head(df))
-}
-
-
 
 
 #' View allergens of a product
@@ -45,11 +21,14 @@ view_allergens <- function(item){
       # unlists the list of different allergens and splits on the comma
       l <- unlist(strsplit(allergens, ","))
       # for loop to iterate through the list of allergens to remove the 'en:' part which indicates the language
+      lt <- list()
       for (item in l) {
         item <- strsplit(item, ":")[[1]][2]
         # prints each allergen item in list in cleaned format
-        print(item)
-    }},
+        lt <- append(lt, item)
+    }
+      return(lt)
+      },
       error = function(e){
         stop('Invalid input: Ensure argument is a product stored value or uses the product function')
       },
@@ -59,7 +38,6 @@ view_allergens <- function(item){
       finally = {}
   )
   }
-}
 
 
 
