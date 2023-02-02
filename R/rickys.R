@@ -87,11 +87,13 @@ plot_sugar <- function(prod_list){
   tryCatch(
     expr = {
       require(ggplot2)
-      name_list <- lapply(prod_list, prod_name)
-      sugar_list <- lapply(prod_list, sugar_per_100g)
-      group_list <- lapply(prod_list, food_group)
+      # get required graph items using predefined functions
+      name_list <- lapply(prod_list, prod_name) 
+      sugar_list <- lapply(prod_list, sugar_per_100g) 
+      group_list <- lapply(prod_list, food_group) 
       df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
       names(df) <- c("Product", "Sugar", "Group")
+      # build plot
       s.plot <- ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
         scale_y_discrete(labels = function(y) lapply(strwrap(y, 
                                                              width = 10, 
@@ -101,7 +103,7 @@ plot_sugar <- function(prod_list){
       return(s.plot)
     },
     error = function(e){
-      stop('')
+      stop('Invalid Input: Ensure argument is list of result(s) of valid product() call.')
     },
     warning = function(w){
       stop('Warning: Invalid Input: Ensure argument is list of result(s) of valid product() call.')
