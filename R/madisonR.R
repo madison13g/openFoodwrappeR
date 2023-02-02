@@ -2,28 +2,25 @@
 
 ### My FN's
 
-#cracker <- product('cracker')
-#apple <- product('apple')
-#cheese <- product('cheese')
-#steak <- product('steak')
-
 
 #' Convert product json into CSV / Excel
 #' 
-#' This function converts the product info from json to csv from product() function
+#' This function converts the product info from json to df in csv downloadable format
 #' 
 #' @param item The output of a specific product() call 
 #'
-#' @return A csv with product info
+#' @return A df that can be downloaded into a csv
 #' @export 
-#' @examples
+#' @examples 
 #' to_csv(product("cracker"))
 #' to_csv(cracker) # where cracker is saved variable from product() call
 to_csv <- function(item){
+  # creates list from the item inputted
   l <- item
+  # unlists the item
   df <- as.data.frame(unlist(l), byrow=TRUE,stringsAsFactors=FALSE)
+  # prints the head of the df to view a sample of it before deciding to export
   print(head(df))
-  # write.csv(df, "C:\\Users\\Product_Info.csv", row.names=FALSE) #create csv file in users
 }
 
 
@@ -41,15 +38,28 @@ to_csv <- function(item){
 #' view_allergens(product("cracker"))
 #' view_allergens(cracker) # where cracker is saved variable from product() call
 view_allergens <- function(item){
-  allergens <- item[["product"]][["allergens"]]
-  l <- unlist(strsplit(allergens, ","))
-  for (item in l) {
-   item <- strsplit(item, ":")[[1]][2]
-    print(item)
+  tryCatch(
+    expr = {
+      # searches the json for allergen information
+      allergens <- item[["product"]][["allergens"]]
+      # unlists the list of different allergens and splits on the comma
+      l <- unlist(strsplit(allergens, ","))
+      # for loop to iterate through the list of allergens to remove the 'en:' part which indicates the language
+      for (item in l) {
+        item <- strsplit(item, ":")[[1]][2]
+        # prints each allergen item in list in cleaned format
+        print(item)
+    }},
+      error = function(e){
+        stop('Invalid input: Ensure argument is a product stored value or uses the product function')
+      },
+      warning = function(w){
+        stop('Invalid input: Ensure argument is a product stored value or uses the product function')
+      },
+      finally = {}
+  )
   }
 }
-
-
 
 
 
@@ -63,19 +73,42 @@ view_allergens <- function(item){
 #' carbon_footprint(product("cracker"))
 #' carbon_footprint(cracker) # where cracker is saved variable from product() call
 carbon_footprint <- function(item){
-  cf <- item[["product"]][["carbon_footprint_from_known_ingredients_debug"]]
-  l <- unlist(strsplit(cf, "="))
-  new_l <- list()
-  for (item in l) {
-    item <- strsplit(item, "-")[[1]][1]
-    item <- strsplit(item, 'g')[[1]][1]
-    item <- gsub(" ","",item)
-    new_l <- append(new_l, item)
-  }
-  new_l <- unlist(new_l,recursive=FALSE)
-  new_l <- new_l[-1]
-  new_l <- as.numeric(unlist(new_l))
-  return(sum(new_l))
+  tryCatch(
+    expr = {
+      # searches the json for carbon footprint information
+      cf <- item[["product"]][["carbon_footprint_from_known_ingredients_debug"]]
+      # unlists and splits based on the equals column
+      l <- unlist(strsplit(cf, "="))
+      # creates a new empty list
+      new_l <- list()
+      # looping over the unlisted item to split on different characters
+      for (item in l) {
+        # split individual item on the dash to help with formatting, index element 1,1
+        item <- strsplit(item, "-")[[1]][1]
+        # split individual item again on 'g' to help with formatting, index element 1,1
+        item <- strsplit(item, 'g')[[1]][1]
+        # removing spaces and replacing with nothing
+        item <- gsub(" ","",item)
+        # appending the proper formatted carbon footprint value to the new list
+        new_l <- append(new_l, item)
+      }
+      # unlisting the new list
+      new_l <- unlist(new_l,recursive=FALSE)
+      # removing the first element, formatting issue
+      new_l <- new_l[-1]
+      # converting the elements (carbon footprint values) to numeric
+      new_l <- as.numeric(unlist(new_l))
+      # summing all carbon footprint elements from the ingredients and returning it
+      return(sum(new_l))
+    },
+    error = function(e){
+      stop('Invalid input: Ensure argument is a product stored value or uses the product function')
+    },
+    warning = function(w){
+      stop('Invalid input: Ensure argument is a product stored value or uses the product function')
+    },
+    finally = {}
+  )
 }
 
 
@@ -90,19 +123,36 @@ carbon_footprint <- function(item){
 #' plot_carbon(list(cracker, apple, cheese, countries)) # saved variables
 #' plot_carbon(list(product("cracker"), product("apple")))
 plot_carbon <- function(prod_list){
-  require(ggplot2)
-  name_list <- lapply(prod_list, prod_name)
-  carbon_list <- lapply(prod_list, carbon_footprint)
-  df <- data.frame(unlist(name_list), unlist(carbon_list))
-  names(df) <- c("Product", "Carbon")
-  plot1 <- ggplot(df, aes(x = Carbon, y = reorder(Product, -Carbon))) + geom_col(fill = 'blue') +
-    scale_y_discrete(labels = function(y) lapply(strwrap(y, 
-                                                         width = 10, 
-                                                         simplify = FALSE), 
-                                                 paste, collapse="\n")) +
-    labs(y = "Product Name", x = "Carbon (in g)")
-  return(plot1)
+  tryCatch(
+    expr = {
+      # require ggplot2 package 
+      require(ggplot2)
+      # create a list of names by applying prod_name fn (above) to the list of items inputted
+      name_list <- lapply(prod_list, prod_name)
+      # create a list of carbon footprint value by applying carbon_footprint fn (above) to list of items inputted
+      carbon_list <- lapply(prod_list, carbon_footprint)
+      # creating a df of the two lists from above to graph later
+      df <- data.frame(unlist(name_list), unlist(carbon_list))
+      # adding titles to the df
+      names(df) <- c("Product", "Carbon")
+      # plotting a bar plot of the total carbon footprint of the products with labels and colours, reordered descending
+      plot1 <- ggplot(df, aes(x = Carbon, y = reorder(Product, -Carbon))) + geom_col(fill = 'blue') +
+        scale_y_discrete(labels = function(y) lapply(strwrap(y, 
+                                                             width = 10, 
+                                                             simplify = FALSE), 
+                                                     paste, collapse="\n")) +
+        labs(y = "Product Name", x = "Carbon (in g)")
+      # returning the plot
+      return(plot1)
+    },
+    
+    error = function(e){
+      stop('Invalid input: Ensure argument is a list of product stored values or uses the product function')
+    },
+    warning = function(w){
+      stop('Invalid input: Ensure argument is a list of product stored values or uses the product function')
+    },
+    finally = {}
+  )
 }
 
-#l2 <- list(apple, cracker, steak)
-#l3 <- list(cracker, apple)
