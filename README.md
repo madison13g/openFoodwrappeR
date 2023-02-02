@@ -8,6 +8,10 @@ For coverage reports, go [here](./code_coverage.html).
 
 For our vignette, go [here](./doc/Intro_to_openFoodwrappeR.html).
 
-# Use Guide
+Documentation on how to use each function can be retrieved in `R` by:
 
-*******show functions here
+```
+> library(openFoodwrappeR)
+
+> help(package = 'openFoodwrappeR')
+```
