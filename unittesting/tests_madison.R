@@ -13,19 +13,18 @@ test_that("quick test check", {
 
 
 #importing function(s) to test
-try(source('../R/rickys.R'), silent=TRUE)
-try(source('../R/calls.R'), silent=TRUE)
-try(source('../R/madisonR.R'), silent=TRUE)
+try(source('../R/rickys.R'), silent=TRUE) # Ricky's fns
+try(source('../R/calls.R'), silent=TRUE) # Jonah's fns
+try(source('../R/madisonR.R'), silent=TRUE) # Madison's fns
 
 
-#defining stored values
-
+#defining stored values for testing
 cracker <- product('cracker', num = 2)
 apple <- product('apple', num = 2)
 cheese <- product('cheese', num = 2)
 steak <- product('steak', num = 2)
 
-#defining lists of stored values
+#defining lists of stored values for testing
 l2 <- list(apple, cracker, steak)
 l3 <- list(cracker, apple)
 
