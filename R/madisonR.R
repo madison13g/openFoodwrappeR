@@ -2,7 +2,7 @@
 
 
 
-#' View allergens of a product
+#' Viewing list of allergens of a product
 #' 
 #' This function returns a list of allergens from product() function
 #' 
