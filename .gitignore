@@ -45,4 +45,5 @@ inst/doc
 # R Environment Variables
 .Renviron
 
+#/doc/
 /doc/

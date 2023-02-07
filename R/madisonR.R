@@ -104,7 +104,7 @@ plot_carbon <- function(prod_list){
   tryCatch(
     expr = {
       # require ggplot2 package 
-      require(ggplot2)
+      require(ggplot2, quietly=TRUE, warn.conflicts = FALSE)
       # create a list of names by applying prod_name fn (above) to the list of items inputted
       name_list <- lapply(prod_list, prod_name)
       # create a list of carbon footprint value by applying carbon_footprint fn (above) to list of items inputted

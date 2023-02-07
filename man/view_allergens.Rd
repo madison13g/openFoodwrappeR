@@ -2,7 +2,7 @@
 % Please edit documentation in R/madisonR.R
 \name{view_allergens}
 \alias{view_allergens}
-\title{View allergens of a product}
+\title{Viewing list of allergens of a product}
 \usage{
 view_allergens(item)
 }

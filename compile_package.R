@@ -4,7 +4,7 @@ devtools::document()
 
 devtools::build_vignettes(
   pkg = ".",
-  dependencies = "VignetteBuilder",
+  dependencies = c("VignetteBuilder", "ggplot2"),
   clean = TRUE,
   upgrade = "never",
   quiet = FALSE,

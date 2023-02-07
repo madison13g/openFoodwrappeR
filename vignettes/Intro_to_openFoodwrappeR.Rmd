@@ -27,14 +27,15 @@ library(openFoodwrappeR)
 In order to retrieve a product based a search term, use the `product()` function:
 
 ```{r}
-x = product('hot sauce')
+y = product('kale smoothie', num=4)
+x = product('nutella', num=3) 
 class(x)
 length(x$product)
 ```
 
 This function returns the parsed `.json` information as a list.
 
-If `R` was running in interactive mode, the user would be prompted to enter a number in order to select which product they would like from the printed list. 
+If `R` was running in interactive mode (or if you do not pass `num`), the user would be prompted to enter a number in order to select which product they would like from the printed list. 
 
 
 ## Get product numbers
@@ -42,8 +43,8 @@ If `R` was running in interactive mode, the user would be prompted to enter a nu
 If you want to get product numbers, you can use the `search_by_name` function:
 
 ```{r}
-y = search_by_name('milk chocolate')
-y
+lst = search_by_name('milk chocolate')
+lst
 ```
 
 
@@ -52,7 +53,7 @@ y
 If you already have a product number and want to retrieve information using the exact product number, use the `product_by_prodnum` function:
 
 ```{r}
-z = product_by_prodnum('80310891')
+z = product_by_prodnum('3168930010906')
 class(z)
 length(z$product)
 ```
@@ -60,14 +61,41 @@ length(z$product)
 
 # Retrieving information from a product
 
+## Product Name 
+
+```{r}
+prod_name(x)
+prod_name(y)
+prod_name(z)
+```
+
+
+## Food group
+
+```{r}
+food_group(x)
+food_group(y)
+food_group(z)
+```
+
+
 
 ## Carbon footprint
 
 ```{r}
-#carbon_footprint(x)
-#plot_carbon(list(x, z))
+carbon_footprint(x)
+carbon_footprint(y)
+carbon_footprint(z)
 ```
 
+
+## Sugar (per 100g)
+
+```{r}
+sugar_per_100g(x)
+sugar_per_100g(y)
+sugar_per_100g(z)
+```
 
 
 
@@ -75,19 +103,27 @@ length(z$product)
 
 
 ```{r}
-#view_allergens(x)
+view_allergens(x)
+view_allergens(y)
+view_allergens(z)
 ```
 
 
 
 
-# Comparing multiple products
-
-text
-
-
-
 # Plotting
 
-text
+
+## Carbon footprint
+
+```{r, fig.width=8}
+plot_carbon(list(x, y, z))
+```
+
+
+## Sugar (per 100g)
+
+```{r, fig.width=8}
+plot_sugar(list(x, y, z))
+```
 
