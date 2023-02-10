@@ -8,6 +8,7 @@ try(source('../R/calls.R'), silent=TRUE)
 celebration <-product("celebration", country = "CA", num = 2)
 chip_ahoy <- product("chip ahoy", num = 2)
 banani <- product("banana", num = 1)
+nogroup <- product("Glace Ferrero Rocher Dark", num = 1)
 
 # prod_name function test
 test_that("Testing prod_name function", {
@@ -30,6 +31,7 @@ test_that("Testing food_group function", {
   expect_error(food_group(strawberry))
   expect_error(food_group("celebration"))
   expect_type(food_group(celebration), 'character')
+  expect_identical(food_group(nogroup), 'No Group')
 }
 )
 

@@ -11,13 +11,21 @@
 #' prod_name(cookie) # where cookie is saved variable from product() call
 prod_name <- function(item){
   tryCatch(
-    expr = {return(item[["product"]][["product_name"]])
+    expr = {
+      # if product_name json variable doesn't exist, then check for other known variable product_name_en, 
+      # other wise prints 'missing english name'
+      ifelse(is.null(item[["product"]][["product_name"]]),
+             ifelse((is.null(item[["product"]][["product_name_en"]])|
+                       is.na(strsplit(item[["product"]][["product_name_en"]], ":")[[1]][2])), 
+                    return('Missing English Name'),
+                    return(strsplit(item[["product"]][["product_name_en"]], ":")[[1]][2])),
+             return(item[["product"]][["product_name"]]))
     },
     error = function(e){
       stop('Invalid Input: Ensure argument is result of valid product() call.')
     },
     warning = function(w){
-      stop('Warning:Invalid Input, Ensure argument is result of valid product() call')
+      stop(w)
     },
     finally = {
     }
@@ -35,18 +43,23 @@ prod_name <- function(item){
 #' sugar_per_100g(cookie) # where cookie is saved variable from product() call
 sugar_per_100g <- function(item){
   tryCatch(
-    expr = {return(item[["product"]][["nutriments"]][["sugars_100g"]])
+    expr = {
+      # check if value exists
+      ifelse(is.null(item[["product"]][["nutriments"]][["sugars_100g"]]), 
+             return(NA),
+             return(item[["product"]][["nutriments"]][["sugars_100g"]]))
     },
     error = function(e){
+      # only known error results from invalid input
       stop('Invalid Input: Ensure argument is result of valid product() call.')
     },
     warning = function(w){
-      stop('Warning: Ensure argument is result of valid product() call')
+      stop(w)
     },
     finally = {
     }
   )
-}
+  }
 
 
 #' Report the food group product is in
@@ -60,13 +73,18 @@ sugar_per_100g <- function(item){
 #' food_group(cookie) # where cookie is saved variable from product() call
 food_group <- function(item){
   tryCatch(
-    expr = {return(strsplit(item[["product"]][["food_groups"]], ":")[[1]][2])
+    expr = {
+      # checks if a group exists
+      ifelse(is.null(item[["product"]][["food_groups"]]), 
+             return('No Group'),
+             return(strsplit(item[["product"]][["food_groups"]], ":")[[1]][2]))
     },
     error = function(e){
+      # only known error results from invalid input
       stop('Invalid Input: Ensure argument is result of valid product() call.')
     },
     warning = function(w){
-      stop('Warning: Ensure argument is result of valid product() call')
+      stop(w)
     },
     finally = {
     }
@@ -91,8 +109,15 @@ plot_sugar <- function(prod_list){
       name_list <- lapply(prod_list, prod_name) 
       sugar_list <- lapply(prod_list, sugar_per_100g) 
       group_list <- lapply(prod_list, food_group) 
+      # build dataframe
       df <- data.frame(unlist(name_list), unlist(sugar_list), unlist(group_list))
       names(df) <- c("Product", "Sugar", "Group")
+      # remove NAs and inform user
+      if (nrow(df[!complete.cases(df), ])!=0){
+        message('Items removed from plot due to missing values:')
+        print(df[!complete.cases(df), ])
+        df <- na.omit(df)
+      }
       # build plot
       s.plot <- ggplot(df, aes(x = Sugar, y= reorder(Product, -Sugar), fill = Group)) + geom_col() +
         scale_y_discrete(labels = function(y) lapply(strwrap(y, 
@@ -103,10 +128,11 @@ plot_sugar <- function(prod_list){
       return(s.plot)
     },
     error = function(e){
+      # only known error results from invalid input
       stop('Invalid Input: Ensure argument is list of result(s) of valid product() call.')
     },
     warning = function(w){
-      stop('Warning: Invalid Input: Ensure argument is list of result(s) of valid product() call.')
+      stop(w)
     },
     finally = {
     }
